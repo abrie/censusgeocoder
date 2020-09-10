@@ -19,8 +19,6 @@ func ParseHttpResponse(resp *http.Response) (*Response, error) {
 		return nil, fmt.Errorf("Failed to read response body: %v", err)
 	}
 
-	fmt.Printf("%s\n", string(body))
-
 	var response Response
 	if err := json.Unmarshal(body, &response); err != nil {
 		return nil, fmt.Errorf("Failed unmarshal response body: %v", err)

@@ -1,6 +1,7 @@
 package submitter
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,13 +13,11 @@ import (
 	"github.com/abrie/censusgeocoder/internal/service"
 )
 
-func Submit(p *service.Service, request request.Request) (*response.Response, error) {
+func Submit(ctx context.Context, p *service.Service, request request.Request) (*response.Response, error) {
 	httpRequest, err := request.BuildHttpRequest(p)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to submit Geocoder request to remote server: %v", err)
 	}
-
-	log.Printf("Making remote geocoder request: %s\n", httpRequest.URL.String())
 
 	client := http.Client{}
 	resp, err := client.Do(httpRequest)
