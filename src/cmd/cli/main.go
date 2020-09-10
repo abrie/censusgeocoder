@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 import (
 	"github.com/abrie/censusgeocoder"
@@ -8,5 +11,10 @@ import (
 
 func main() {
 	fmt.Printf("Searching...\n")
-	censusgeocoder.SearchOneLineAddress("123 Fake St")
+	result, err := censusgeocoder.SearchOneLineAddress("123 Fake St.")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%v\n", result)
 }
