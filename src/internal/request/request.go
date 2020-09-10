@@ -1,6 +1,7 @@
 package request
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 )
@@ -10,7 +11,7 @@ import (
 )
 
 type Request interface {
-	BuildHttpRequest(service *service.Service) (*http.Request, error)
+	BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error)
 }
 
 type OneLineAddress struct {
@@ -19,13 +20,10 @@ type OneLineAddress struct {
 	Format    string `json:"format"`
 }
 
-// endpoint = https://geocoding.geo.census.gov/geocoder/locations
-// benchmark = "Public_AR_Curent"
-// format = "json"
-func (params OneLineAddress) BuildHttpRequest(service *service.Service) (*http.Request, error) {
+func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
 	url := fmt.Sprintf("%s/onelineaddress", service.Endpoint)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to build HTTP Request: %v", err)
 	}
@@ -40,10 +38,10 @@ func (params OneLineAddress) BuildHttpRequest(service *service.Service) (*http.R
 	return req, nil
 }
 
-func (params Coordinates) BuildHttpRequest(service *service.Service) (*http.Request, error) {
+func (params Coordinates) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
 	url := fmt.Sprintf("%s/coordinates", service.Endpoint)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to build HTTP Request: %v", err)
 	}
@@ -59,10 +57,10 @@ func (params Coordinates) BuildHttpRequest(service *service.Service) (*http.Requ
 	return req, nil
 }
 
-func (params Address) BuildHttpRequest(service *service.Service) (*http.Request, error) {
+func (params Address) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
 	url := fmt.Sprintf("%s/address", service.Endpoint)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to build HTTP Request: %v", err)
 	}
