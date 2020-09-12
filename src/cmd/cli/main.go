@@ -20,12 +20,12 @@ func main() {
 	if *addressPtr == "" {
 		fmt.Printf("censusgeocoder: Specify an address to search, for example:\n\n")
 		flag.PrintDefaults()
-		fmt.Printf("\nExample: censusgeocoder -address=\"100 State St Chicago IL\"\n")
+		fmt.Printf("\nExample: censusgeocoder -address=\"4600 Silver Hill Rd, Suitland, MD\"\n")
 		os.Exit(1)
 	}
 
 	fmt.Printf("Searching...")
-	result, err := censusgeocoder.SearchOneLineAddress(context.Background(), *addressPtr)
+	result, err := censusgeocoder.SearchOneLineAddressGeographies(context.Background(), *addressPtr, "Public_AR_Census2010", "Census2010_Census2010")
 	if err != nil {
 		log.Fatal(err)
 	}
