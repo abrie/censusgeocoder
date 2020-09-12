@@ -45,6 +45,37 @@ type AddressComponents struct {
 	Zip             string `json:"zip"`
 }
 
+type Geographies struct {
+	CensusBlocks []CensusBlock `json:"Census Blocks"`
+}
+
+type CensusBlock struct {
+	SUFFIX    string `json:"SUFFIX"`
+	POP100    int64  `json:"POP100"`
+	GEOID     string `json:"GEOID"`
+	CENTLAT   string `json:"CENTLAT"`
+	CENTLON   string `json:"CENTLON"`
+	BLOCK     string `json:"BLOCK"`
+	AREAWATER int64  `json:"AREAWATER"`
+	STATE     string `json:"STATE"`
+	BASENAME  string `json:"BASENAME"`
+	OID       int64  `json:"OID"`
+	LSADC     string `json:"LSADC"`
+	FUNCSTAT  string `json:"FUNCSTAT"`
+	INTPTLAT  string `json:"INTPTLAT"`
+	INTPTLON  string `json:"INTPTLON"`
+	NAME      string `json:"NAME"`
+	OBJECTID  int64  `json:"OBJECTID"`
+	TRACT     string `json:"TRACT"`
+	BLKGRP    string `json:"BLKGRP"`
+	AREALAND  int64  `json:"AREALAND"`
+	HU100     int64  `json:"HU100"`
+	MTFCC     string `json:"MTFCC"`
+	LWBLKTYP  string `json:"LWBLKTYP"`
+	UR        string `json:"UR"`
+	COUNTY    string `json:"COUNTY"`
+}
+
 type OneLineAddress struct {
 	Address string `json:"address"`
 }
@@ -60,6 +91,7 @@ type AddressMatch struct {
 	Coordinates       Coordinates       `json:"coordinates"`
 	AddressComponents AddressComponents `json:"addressComponents"`
 	TigerLine         TigerLine         `json:"tigerLine"`
+	Geographies       Geographies       `json:"geographies,omitempty"`
 }
 
 type MatchedAddress string

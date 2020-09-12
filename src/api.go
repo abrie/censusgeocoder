@@ -11,22 +11,73 @@ import (
 	"github.com/abrie/censusgeocoder/internal/submitter"
 )
 
-const endpoint = "https://geocoding.geo.census.gov/geocoder/locations"
+const endpoint = "https://geocoding.geo.census.gov/geocoder"
 
-func SearchOneLineAddress(ctx context.Context, address string) (*response.Response, error) {
+func SearchOneLineAddressLocations(ctx context.Context, address, benchmark string) (*response.Response, error) {
 	service := &service.Service{Endpoint: endpoint}
-	request := request.OneLineAddress{Address: address, Benchmark: "Public_AR_Current", Format: "json"}
+	request := request.OneLineAddress{
+		Address:    address,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "locations"}
 	return submitter.Submit(ctx, service, request)
 }
 
-func SearchAddress(ctx context.Context, street, city, state string) (*response.Response, error) {
+func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vintage string) (*response.Response, error) {
 	service := &service.Service{Endpoint: endpoint}
-	request := request.Address{Street: street, City: city, State: state, Benchmark: "Public_AR_Current", Format: "json"}
+	request := request.OneLineAddress{
+		Address:    address,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "geographies",
+		Vintage:    vintage}
 	return submitter.Submit(ctx, service, request)
 }
 
-func SearchCoordinates(ctx context.Context, x, y float64) (*response.Response, error) {
+func SearchAddressLocations(ctx context.Context, street, city, state, benchmark string) (*response.Response, error) {
 	service := &service.Service{Endpoint: endpoint}
-	request := request.Coordinates{X: x, Y: y, Benchmark: "Public_AR_Current", Format: "json"}
+	request := request.Address{
+		Street:     street,
+		City:       city,
+		State:      state,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "locations"}
+	return submitter.Submit(ctx, service, request)
+}
+
+func SearchAddressGeographies(ctx context.Context, street, city, state, benchmark, vintage string) (*response.Response, error) {
+	service := &service.Service{Endpoint: endpoint}
+	request := request.Address{
+		Street:     street,
+		City:       city,
+		State:      state,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "geographies",
+		Vintage:    vintage}
+	return submitter.Submit(ctx, service, request)
+}
+
+func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark string) (*response.Response, error) {
+	service := &service.Service{Endpoint: endpoint}
+	request := request.Coordinates{
+		X:          x,
+		Y:          y,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "locations"}
+	return submitter.Submit(ctx, service, request)
+}
+
+func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, vintage string) (*response.Response, error) {
+	service := &service.Service{Endpoint: endpoint}
+	request := request.Coordinates{
+		X:          x,
+		Y:          y,
+		Benchmark:  benchmark,
+		Format:     "json",
+		ReturnType: "geographies",
+		Vintage:    vintage}
 	return submitter.Submit(ctx, service, request)
 }

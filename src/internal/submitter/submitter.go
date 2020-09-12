@@ -16,8 +16,10 @@ import (
 func Submit(ctx context.Context, p *service.Service, request request.Request) (*response.Response, error) {
 	httpRequest, err := request.BuildHttpRequest(ctx, p)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to submit Geocoder request to remote server: %v", err)
+		return nil, fmt.Errorf("Failed to build HTTP request: '%v'", err)
 	}
+
+	log.Printf("%v\n", httpRequest.URL)
 
 	client := http.Client{}
 	resp, err := client.Do(httpRequest)
