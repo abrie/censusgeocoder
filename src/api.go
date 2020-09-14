@@ -13,10 +13,15 @@ import (
 
 const endpoint = "https://geocoding.geo.census.gov/geocoder"
 
-func GetBenchmarks(ctx context.Context) (*response.Response, error) {
+func GetBenchmarks(ctx context.Context) (*[]response.Benchmark, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Benchmarks{}
-	return submitter.Submit(ctx, service, request)
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Benchmarks, nil
 }
 
 func GetVintages(ctx context.Context, benchmark string) (*response.Response, error) {
