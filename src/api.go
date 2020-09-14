@@ -13,6 +13,18 @@ import (
 
 const endpoint = "https://geocoding.geo.census.gov/geocoder"
 
+func GetBenchmarks(ctx context.Context) (*response.Response, error) {
+	service := &service.Service{Endpoint: endpoint}
+	request := request.Benchmarks{}
+	return submitter.Submit(ctx, service, request)
+}
+
+func GetVintages(ctx context.Context, benchmark string) (*response.Response, error) {
+	service := &service.Service{Endpoint: endpoint}
+	request := request.Vintages{Benchmark: benchmark}
+	return submitter.Submit(ctx, service, request)
+}
+
 func SearchOneLineAddressLocations(ctx context.Context, address, benchmark string) (*response.Response, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.OneLineAddress{

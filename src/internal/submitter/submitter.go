@@ -19,8 +19,6 @@ func Submit(ctx context.Context, p *service.Service, request request.Request) (*
 		return nil, fmt.Errorf("Failed to build HTTP request: '%v'", err)
 	}
 
-	log.Printf("%v\n", httpRequest.URL)
-
 	client := http.Client{}
 	resp, err := client.Do(httpRequest)
 	if err != nil {

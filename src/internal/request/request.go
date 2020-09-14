@@ -14,6 +14,46 @@ type Request interface {
 	BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error)
 }
 
+type Benchmarks struct {
+}
+
+type Vintages struct {
+	Benchmark string `json:"benchmark"`
+}
+
+func (params Vintages) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
+	url := fmt.Sprintf("%s/vintages", service.Endpoint)
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to build HTTP Request: %v", err)
+	}
+
+	q := req.URL.Query()
+	q.Add("format", FormatJSON)
+	q.Add("benchmark", params.Benchmark)
+
+	req.URL.RawQuery = q.Encode()
+
+	return req, nil
+}
+
+func (params Benchmarks) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
+	url := fmt.Sprintf("%s/benchmarks", service.Endpoint)
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to build HTTP Request: %v", err)
+	}
+
+	q := req.URL.Query()
+	q.Add("format", FormatJSON)
+
+	req.URL.RawQuery = q.Encode()
+
+	return req, nil
+}
+
 type OneLineAddress struct {
 	Address    string `json:"address"`
 	Benchmark  string `json:"benchmark"`
@@ -31,7 +71,6 @@ func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *serv
 	}
 
 	q := req.URL.Query()
-
 	q.Add("address", params.Address)
 	q.Add("benchmark", params.Benchmark)
 	q.Add("format", params.Format)
@@ -58,7 +97,6 @@ func (params Coordinates) BuildHttpRequest(ctx context.Context, service *service
 	}
 
 	q := req.URL.Query()
-
 	q.Add("x", fmt.Sprintf("%f", params.X))
 	q.Add("y", fmt.Sprintf("%f", params.Y))
 	q.Add("benchmark", params.Benchmark)
@@ -86,7 +124,6 @@ func (params Address) BuildHttpRequest(ctx context.Context, service *service.Ser
 	}
 
 	q := req.URL.Query()
-
 	q.Add("street", params.Street)
 	q.Add("city", params.City)
 	q.Add("state", params.State)
