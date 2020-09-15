@@ -10,6 +10,8 @@ import (
 	"github.com/abrie/censusgeocoder/internal/service"
 )
 
+const FormatJSON = "json"
+
 type Request interface {
 	BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error)
 }
@@ -57,7 +59,6 @@ func (params Benchmarks) BuildHttpRequest(ctx context.Context, service *service.
 type OneLineAddress struct {
 	Address    string `json:"address"`
 	Benchmark  string `json:"benchmark"`
-	Format     string `json:"format"`
 	Vintage    string `json:"vintage"`
 	ReturnType string `json:"returnType"`
 }
@@ -73,7 +74,7 @@ func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *serv
 	q := req.URL.Query()
 	q.Add("address", params.Address)
 	q.Add("benchmark", params.Benchmark)
-	q.Add("format", params.Format)
+	q.Add("format", FormatJSON)
 
 	if params.ReturnType == "geographies" {
 		if params.Vintage != "" {
@@ -100,7 +101,7 @@ func (params Coordinates) BuildHttpRequest(ctx context.Context, service *service
 	q.Add("x", fmt.Sprintf("%f", params.X))
 	q.Add("y", fmt.Sprintf("%f", params.Y))
 	q.Add("benchmark", params.Benchmark)
-	q.Add("format", params.Format)
+	q.Add("format", FormatJSON)
 
 	if params.ReturnType == "geographies" {
 		if params.Vintage != "" {
@@ -128,7 +129,7 @@ func (params Address) BuildHttpRequest(ctx context.Context, service *service.Ser
 	q.Add("city", params.City)
 	q.Add("state", params.State)
 	q.Add("benchmark", params.Benchmark)
-	q.Add("format", params.Format)
+	q.Add("format", FormatJSON)
 
 	if params.ReturnType == "geographies" {
 		if params.Vintage != "" {
@@ -148,7 +149,6 @@ type Address struct {
 	City       string `json:"city"`
 	State      string `json:"state"`
 	Benchmark  string `json:"benchmark"`
-	Format     string `json:"format"`
 	Vintage    string `json:"vintage"`
 	ReturnType string `json:"returnType"`
 }
@@ -157,11 +157,8 @@ type Coordinates struct {
 	X          float64 `json:"x"`
 	Y          float64 `json:"y"`
 	Benchmark  string  `json:"benchmark"`
-	Format     string  `json:"format"`
 	Vintage    string  `json:"vintage"`
 	ReturnType string  `json:"returnType"`
 }
-
-const FormatJSON = "json"
 
 type Layers []string

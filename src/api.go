@@ -40,7 +40,6 @@ func SearchOneLineAddressLocations(ctx context.Context, address, benchmark strin
 	request := request.OneLineAddress{
 		Address:    address,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "locations"}
 
 	response, err := submitter.Submit(ctx, service, request)
@@ -56,7 +55,6 @@ func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vi
 	request := request.OneLineAddress{
 		Address:    address,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
 
@@ -75,7 +73,6 @@ func SearchAddressLocations(ctx context.Context, street, city, state, benchmark 
 		City:       city,
 		State:      state,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "locations"}
 
 	response, err := submitter.Submit(ctx, service, request)
@@ -93,7 +90,6 @@ func SearchAddressGeographies(ctx context.Context, street, city, state, benchmar
 		City:       city,
 		State:      state,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
 
@@ -111,7 +107,6 @@ func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark stri
 		X:          x,
 		Y:          y,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "locations"}
 
 	response, err := submitter.Submit(ctx, service, request)
@@ -128,7 +123,6 @@ func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, v
 		X:          x,
 		Y:          y,
 		Benchmark:  benchmark,
-		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
 
