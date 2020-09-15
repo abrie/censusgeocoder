@@ -24,10 +24,15 @@ func GetBenchmarks(ctx context.Context) (*[]response.Benchmark, error) {
 	return &response.Benchmarks, nil
 }
 
-func GetVintages(ctx context.Context, benchmark string) (*response.Response, error) {
+func GetVintages(ctx context.Context, benchmark string) (*[]response.Vintage, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Vintages{Benchmark: benchmark}
-	return submitter.Submit(ctx, service, request)
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Vintages, nil
 }
 
 func SearchOneLineAddressLocations(ctx context.Context, address, benchmark string) (*response.Response, error) {
