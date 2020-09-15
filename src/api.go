@@ -35,17 +35,23 @@ func GetVintages(ctx context.Context, benchmark string) (*[]response.Vintage, er
 	return &response.Vintages, nil
 }
 
-func SearchOneLineAddressLocations(ctx context.Context, address, benchmark string) (*response.Response, error) {
+func SearchOneLineAddressLocations(ctx context.Context, address, benchmark string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.OneLineAddress{
 		Address:    address,
 		Benchmark:  benchmark,
 		Format:     "json",
 		ReturnType: "locations"}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
 
-func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vintage string) (*response.Response, error) {
+func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vintage string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.OneLineAddress{
 		Address:    address,
@@ -53,10 +59,16 @@ func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vi
 		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
 
-func SearchAddressLocations(ctx context.Context, street, city, state, benchmark string) (*response.Response, error) {
+func SearchAddressLocations(ctx context.Context, street, city, state, benchmark string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Address{
 		Street:     street,
@@ -65,10 +77,16 @@ func SearchAddressLocations(ctx context.Context, street, city, state, benchmark 
 		Benchmark:  benchmark,
 		Format:     "json",
 		ReturnType: "locations"}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
 
-func SearchAddressGeographies(ctx context.Context, street, city, state, benchmark, vintage string) (*response.Response, error) {
+func SearchAddressGeographies(ctx context.Context, street, city, state, benchmark, vintage string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Address{
 		Street:     street,
@@ -78,10 +96,16 @@ func SearchAddressGeographies(ctx context.Context, street, city, state, benchmar
 		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
 
-func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark string) (*response.Response, error) {
+func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Coordinates{
 		X:          x,
@@ -89,10 +113,16 @@ func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark stri
 		Benchmark:  benchmark,
 		Format:     "json",
 		ReturnType: "locations"}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
 
-func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, vintage string) (*response.Response, error) {
+func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, vintage string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Coordinates{
 		X:          x,
@@ -101,5 +131,11 @@ func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, v
 		Format:     "json",
 		ReturnType: "geographies",
 		Vintage:    vintage}
-	return submitter.Submit(ctx, service, request)
+
+	response, err := submitter.Submit(ctx, service, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response.Result, nil
 }
