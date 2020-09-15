@@ -6,12 +6,21 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 import (
 	"github.com/abrie/censusgeocoder"
 	"github.com/abrie/censusgeocoder/cmd/cli/utils"
 )
+
+func layerArray(str *string) []string {
+	if str == nil {
+		return []string{}
+	} else {
+		return strings.Split(*str, ",")
+	}
+}
 
 func SearchGeographies(args []string) {
 	flagSet := flag.NewFlagSet("geographies", flag.ExitOnError)
@@ -22,6 +31,7 @@ func SearchGeographies(args []string) {
 	street := flagSet.String("street", "", "Structure and Street component of address")
 	city := flagSet.String("city", "", "City component of address")
 	state := flagSet.String("state", "", "State component of address")
+	layers := flagSet.String("layers", "", "Optional extra TigerWEB WMS Layers")
 
 	if err := flagSet.Parse(args); err != nil {
 		flagSet.PrintDefaults()
@@ -41,12 +51,12 @@ func SearchGeographies(args []string) {
 	}
 
 	if *onelineAddress != "" {
-		searchOneLineAddressGeographies(*onelineAddress, *benchmark, *vintage)
+		searchOneLineAddressGeographies(*onelineAddress, *benchmark, *vintage, layerArray(layers))
 		os.Exit(0)
 	}
 
 	if *street != "" && *city != "" && *state != "" {
-		searchAddressGeographies(*street, *city, *state, *benchmark, *vintage)
+		searchAddressGeographies(*street, *city, *state, *benchmark, *vintage, layerArray(layers))
 		os.Exit(0)
 	}
 
@@ -55,8 +65,8 @@ func SearchGeographies(args []string) {
 
 }
 
-func searchOneLineAddressGeographies(oneline, benchmark, vintage string) {
-	result, err := censusgeocoder.SearchOneLineAddressGeographies(context.Background(), oneline, benchmark, vintage)
+func searchOneLineAddressGeographies(oneline, benchmark, vintage string, layers []string) {
+	result, err := censusgeocoder.SearchOneLineAddressGeographies(context.Background(), oneline, benchmark, vintage, layers)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -64,8 +74,8 @@ func searchOneLineAddressGeographies(oneline, benchmark, vintage string) {
 	utils.PrettyPrint(result)
 }
 
-func searchAddressGeographies(street, city, state, benchmark, vintage string) {
-	result, err := censusgeocoder.SearchAddressGeographies(context.Background(), street, city, state, benchmark, vintage)
+func searchAddressGeographies(street, city, state, benchmark, vintage string, layers []string) {
+	result, err := censusgeocoder.SearchAddressGeographies(context.Background(), street, city, state, benchmark, vintage, layers)
 	if err != nil {
 		log.Fatal(err)
 	}

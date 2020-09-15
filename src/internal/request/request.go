@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 import (
@@ -57,10 +58,11 @@ func (params Benchmarks) BuildHttpRequest(ctx context.Context, service *service.
 }
 
 type OneLineAddress struct {
-	Address    string `json:"address"`
-	Benchmark  string `json:"benchmark"`
-	Vintage    string `json:"vintage"`
-	ReturnType string `json:"returnType"`
+	Address    string   `json:"address"`
+	Benchmark  string   `json:"benchmark"`
+	Vintage    string   `json:"vintage"`
+	Layers     []string `json:"layers"`
+	ReturnType string   `json:"returnType"`
 }
 
 func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
@@ -81,6 +83,10 @@ func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *serv
 			q.Add("vintage", params.Vintage)
 		} else {
 			return nil, fmt.Errorf("'vintage' parameter must be set if ReturnType is 'geographies'.")
+		}
+
+		if len(params.Layers) > 0 {
+			q.Add("layers", strings.Join(params.Layers, ","))
 		}
 	}
 
@@ -108,6 +114,10 @@ func (params Coordinates) BuildHttpRequest(ctx context.Context, service *service
 			q.Add("vintage", params.Vintage)
 		} else {
 			return nil, fmt.Errorf("'vintage' parameter must be set if ReturnType is 'geographies'.")
+		}
+
+		if len(params.Layers) > 0 {
+			q.Add("layers", strings.Join(params.Layers, ","))
 		}
 	}
 
@@ -137,6 +147,10 @@ func (params Address) BuildHttpRequest(ctx context.Context, service *service.Ser
 		} else {
 			return nil, fmt.Errorf("'vintage' parameter must be set if ReturnType is 'geographies'.")
 		}
+
+		if len(params.Layers) > 0 {
+			q.Add("layers", strings.Join(params.Layers, ","))
+		}
 	}
 
 	req.URL.RawQuery = q.Encode()
@@ -145,20 +159,20 @@ func (params Address) BuildHttpRequest(ctx context.Context, service *service.Ser
 }
 
 type Address struct {
-	Street     string `json:"street"`
-	City       string `json:"city"`
-	State      string `json:"state"`
-	Benchmark  string `json:"benchmark"`
-	Vintage    string `json:"vintage"`
-	ReturnType string `json:"returnType"`
+	Street     string   `json:"street"`
+	City       string   `json:"city"`
+	State      string   `json:"state"`
+	Benchmark  string   `json:"benchmark"`
+	Vintage    string   `json:"vintage"`
+	Layers     []string `json:"layers"`
+	ReturnType string   `json:"returnType"`
 }
 
 type Coordinates struct {
-	X          float64 `json:"x"`
-	Y          float64 `json:"y"`
-	Benchmark  string  `json:"benchmark"`
-	Vintage    string  `json:"vintage"`
-	ReturnType string  `json:"returnType"`
+	X          float64  `json:"x"`
+	Y          float64  `json:"y"`
+	Benchmark  string   `json:"benchmark"`
+	Vintage    string   `json:"vintage"`
+	Layers     []string `json:"layers"`
+	ReturnType string   `json:"returnType"`
 }
-
-type Layers []string

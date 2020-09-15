@@ -50,13 +50,14 @@ func SearchOneLineAddressLocations(ctx context.Context, address, benchmark strin
 	return &response.Result, nil
 }
 
-func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vintage string) (*response.Result, error) {
+func SearchOneLineAddressGeographies(ctx context.Context, address, benchmark, vintage string, layers []string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.OneLineAddress{
 		Address:    address,
 		Benchmark:  benchmark,
 		ReturnType: "geographies",
-		Vintage:    vintage}
+		Vintage:    vintage,
+		Layers:     layers}
 
 	response, err := submitter.Submit(ctx, service, request)
 	if err != nil {
@@ -83,7 +84,7 @@ func SearchAddressLocations(ctx context.Context, street, city, state, benchmark 
 	return &response.Result, nil
 }
 
-func SearchAddressGeographies(ctx context.Context, street, city, state, benchmark, vintage string) (*response.Result, error) {
+func SearchAddressGeographies(ctx context.Context, street, city, state, benchmark, vintage string, layers []string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Address{
 		Street:     street,
@@ -91,7 +92,8 @@ func SearchAddressGeographies(ctx context.Context, street, city, state, benchmar
 		State:      state,
 		Benchmark:  benchmark,
 		ReturnType: "geographies",
-		Vintage:    vintage}
+		Vintage:    vintage,
+		Layers:     layers}
 
 	response, err := submitter.Submit(ctx, service, request)
 	if err != nil {
@@ -117,14 +119,15 @@ func SearchCoordinateLocations(ctx context.Context, x, y float64, benchmark stri
 	return &response.Result, nil
 }
 
-func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, vintage string) (*response.Result, error) {
+func SearchCoordinateGeographies(ctx context.Context, x, y float64, benchmark, vintage string, layers []string) (*response.Result, error) {
 	service := &service.Service{Endpoint: endpoint}
 	request := request.Coordinates{
 		X:          x,
 		Y:          y,
 		Benchmark:  benchmark,
 		ReturnType: "geographies",
-		Vintage:    vintage}
+		Vintage:    vintage,
+		Layers:     layers}
 
 	response, err := submitter.Submit(ctx, service, request)
 	if err != nil {
