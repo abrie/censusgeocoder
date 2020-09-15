@@ -9,9 +9,6 @@ import (
 	"github.com/abrie/censusgeocoder/cmd/cli/commands"
 )
 
-func getLocation(args []string) {
-}
-
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Printf("Need parameters...\n")
@@ -27,7 +24,7 @@ func main() {
 	case "vintages":
 		commands.GetVintages(args)
 	case "location":
-		getLocation(args)
+		commands.SearchLocations(args)
 	case "geographies":
 		commands.SearchGeographies(args)
 	default:
@@ -36,6 +33,4 @@ func main() {
 	}
 
 	os.Exit(0)
-
-	//	searchAddressGeographies(*addressPtr, "Public_AR_Census2010", "Census2010_Census2010")
 }
