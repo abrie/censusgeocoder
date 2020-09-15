@@ -35,12 +35,12 @@ func SearchLocations(args []string) {
 
 	if *onelineAddress != "" {
 		searchOneLineAddressLocations(*onelineAddress, *benchmark)
-		os.Exit(2)
+		os.Exit(0)
 	}
 
 	if *street != "" && *city != "" && *state != "" {
 		searchAddressLocations(*street, *city, *state, *benchmark)
-		os.Exit(2)
+		os.Exit(0)
 	}
 
 	flagSet.PrintDefaults()

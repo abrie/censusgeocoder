@@ -19,5 +19,5 @@ func GetBenchmarks(args []string) {
 
 	utils.PrettyPrint(result)
 
-	os.Exit(2)
+	os.Exit(0)
 }

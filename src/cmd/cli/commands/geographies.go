@@ -42,12 +42,12 @@ func SearchGeographies(args []string) {
 
 	if *onelineAddress != "" {
 		searchOneLineAddressGeographies(*onelineAddress, *benchmark, *vintage)
-		os.Exit(2)
+		os.Exit(0)
 	}
 
 	if *street != "" && *city != "" && *state != "" {
 		searchAddressGeographies(*street, *city, *state, *benchmark, *vintage)
-		os.Exit(2)
+		os.Exit(0)
 	}
 
 	flagSet.PrintDefaults()
