@@ -55,6 +55,10 @@ func SearchLocations(args []string) {
 	os.Exit(2)
 }
 
+func HelpLocations() {
+	fmt.Printf("usage: locations [-oneline] [-street -city -state] [-benchmark]\n")
+}
+
 func searchOneLineAddressLocations(oneline, benchmark *string) {
 	result, err := censusgeocoder.SearchOneLineAddressLocations(context.Background(), *oneline, *benchmark)
 	if err != nil {

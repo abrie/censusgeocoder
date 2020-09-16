@@ -72,6 +72,10 @@ func SearchGeographies(args []string) {
 
 }
 
+func HelpGeographies() {
+	fmt.Printf("usage: geographies [-oneline] [-street -city -state] [-benchmark] [-vintage]\n")
+}
+
 func searchOneLineAddressGeographies(oneline, benchmark, vintage *string, layers []string) {
 	result, err := censusgeocoder.SearchOneLineAddressGeographies(context.Background(), *oneline, *benchmark, *vintage, layers)
 	if err != nil {
