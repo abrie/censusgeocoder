@@ -30,6 +30,8 @@ func main() {
 		commands.SearchLocations(args)
 	case "geographies":
 		commands.SearchGeographies(args)
+	case "help":
+		commands.GetHelp(args)
 	default:
 		fmt.Printf("Unknown command.\n")
 		os.Exit(2)

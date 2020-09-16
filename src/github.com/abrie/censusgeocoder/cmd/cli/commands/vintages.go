@@ -3,6 +3,7 @@ package commands
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 )
@@ -33,5 +34,11 @@ func GetVintages(args []string) {
 
 	utils.PrettyPrint(result)
 
+	os.Exit(0)
+}
+
+func HelpVintages() {
+	fmt.Printf("usage: censusgeocoder vintages <benchmark>\n\n")
+	fmt.Printf("Lists all vintages available for a benchmark. This parameter is\nused when doing geographies lookups. For a web interface with more information,\nrefer to the official web page: https://geocoding.geo.census.gov/geocoder/vintages.\n\n")
 	os.Exit(0)
 }
