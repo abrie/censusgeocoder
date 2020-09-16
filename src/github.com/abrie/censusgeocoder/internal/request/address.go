@@ -22,7 +22,7 @@ type Address struct {
 }
 
 func (params Address) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
-	url := fmt.Sprintf("%s/%s/address", service.Endpoint, params.ReturnType)
+	url := strings.Join([]string{service.Endpoint, params.ReturnType, "address"}, "/")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
