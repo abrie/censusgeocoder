@@ -29,6 +29,6 @@ func TestAddressRequest(t *testing.T) {
 
 	got := request.URL.String()
 	if got != expected {
-		t.Errorf("Expected: '%s', Got: '%s'", got, expected)
+		t.Errorf("\nWant:\t'%s'\nGot:\t'%s'", expected, got)
 	}
 }
