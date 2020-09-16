@@ -16,6 +16,7 @@ Results are written to stdout as JSON.
 ## Use the API programmatically
 
 - `import ("github.com/abrie/censusgeocoder")`
+
 Two types of results are available: 'locations' or 'geographies'. Both require a 'benchmark' parameter.
 Geographies takes two additional parameters: 'vintage' parameters, and an (optionally empty) 'layers' parameter.
 
