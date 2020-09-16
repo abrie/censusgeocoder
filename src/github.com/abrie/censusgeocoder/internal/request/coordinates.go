@@ -21,7 +21,7 @@ type Coordinates struct {
 }
 
 func (params Coordinates) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
-	url := fmt.Sprintf("%s/%s/coordinates", service.Endpoint, params.ReturnType)
+	url := strings.Join([]string{service.Endpoint, params.ReturnType, "coordinates"}, "/")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {

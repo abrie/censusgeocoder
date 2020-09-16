@@ -20,7 +20,7 @@ type OneLineAddress struct {
 }
 
 func (params OneLineAddress) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
-	url := fmt.Sprintf("%s/%s/onelineaddress", service.Endpoint, params.ReturnType)
+	url := strings.Join([]string{service.Endpoint, params.ReturnType, "onelineaddress"}, "/")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {

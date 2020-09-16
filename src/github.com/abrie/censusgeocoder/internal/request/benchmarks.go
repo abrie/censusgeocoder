@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 import (
@@ -14,7 +15,7 @@ type Benchmarks struct {
 }
 
 func (params Benchmarks) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
-	url := fmt.Sprintf("%s/benchmarks", service.Endpoint)
+	url := strings.Join([]string{service.Endpoint, "benchmarks"}, "/")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {

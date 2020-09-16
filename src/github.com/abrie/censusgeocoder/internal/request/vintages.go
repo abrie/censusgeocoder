@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 import (
@@ -15,7 +16,7 @@ type Vintages struct {
 }
 
 func (params Vintages) BuildHttpRequest(ctx context.Context, service *service.Service) (*http.Request, error) {
-	url := fmt.Sprintf("%s/vintages", service.Endpoint)
+	url := strings.Join([]string{service.Endpoint, "vintages"}, "/")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
