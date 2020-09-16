@@ -1,26 +1,34 @@
-# Go Wrapper for Census.gov Geocoder API
+# CLI and Go Wrapper for Census.gov Geocoder 
 
-This Go module wraps the REST API provided by [census.gov geocoder](https://geocoding.geo.census.gov/geocoder).
+This repository contains a Go module for interfacing with [Census.gov Geocoder](https://geocoding.geo.census.gov/geocoder) REST API. It also includes a CLI utility for interacting with the geocoder.
 
-## Methods
+## CLI
 
-Two types of data can be returned, 'locations' or 'geographies'. Geographies are an optional extension of 'locations' return type.
+- Build the CLI using Make: `make build`
+- Invoke the CLI without parameters for help: `./bin/cli`
 
-Locations require a 'benchmark' parameter.
+Results are written to stdout as JSON.
 
+## API
+
+Two types of results are available: 'locations' or 'geographies'. Both require a 'benchmark' parameter.
+Geographies takes two additional parameters: 'vintage' parameters, and an (optionally empty) 'layers' parameter.
+
+### Locations
 ```go
 SearchOneLineAddressLocations(ctx context, onelineaddress, benchmark string)
 SearchAddressLocations(ctx context, street, city, state, benchmark string)
 SearchByCoordinateLocations(ctx context, x,y float64, benchmark string)
 ```
+### Geographies
 
-Geographies require a 'benchmark' and 'vintage' parameter.
+Geographies require a 'benchmark', 'vintage' and 'layers' parameter. Leave layers as an empty array for default behaviour.
 ```go
-SearchOneLineAddressGeographies(ctx context, onelineaddress, benchmark, vintage string)
-SearchAddressGeographies(ctx context, street, city, state, benchmark, vintage string)
-SearchByCoordinateGeographies(ctx context, x,y float64, benchmark, vintage string)
+SearchOneLineAddressGeographies(ctx context, onelineaddress, benchmark, vintage string, layers []string)
+SearchAddressGeographies(ctx context, street, city, state, benchmark, vintage string, layers []string)
+SearchByCoordinateGeographies(ctx context, x,y float64, benchmark, vintage string, layers[]string)
 ```
 
-### Technical Details
+## Technical Details
 
 For more information about the returned fields, see the [official Census.gov documentation](https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf).
