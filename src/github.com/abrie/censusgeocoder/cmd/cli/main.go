@@ -11,7 +11,10 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Printf("Need parameters...\n")
+		fmt.Printf("This is an unoffical cli interface to the Census.gov Geocoder.\n")
+		fmt.Printf("See https://geocoding.geo.census.gov/ for the service it interacts with.\n\n")
+		fmt.Printf("Usage:\n\n\tcensusgeocoder <command> [parameters]\n\n")
+		fmt.Printf("The commands are:\n\n\tbenchmarks\n\tvintages\n\tlocation\n\tgeographies\n\n")
 		os.Exit(1)
 	}
 
