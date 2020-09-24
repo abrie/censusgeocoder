@@ -8,7 +8,7 @@ build:
 	@GOPATH=$(GOPATH) go build -v -o bin/cli github.com/abrie/censusgeocoder/cmd/cli
 
 container:
-	docker build -t censusgeocoder .
+	docker build -t abriedev/censusgeocoder:latest .
 
 test:
 	@GOPATH=$(GOPATH) go test -v ./...

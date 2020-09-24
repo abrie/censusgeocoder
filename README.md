@@ -4,7 +4,7 @@ This repository contains a Go module for interfacing with [Census.gov Geocoder](
 
 ## Use CLI from Docker Image
 
-- `docker run docker.pkg.github.com/abrie/censusgeocoder/cli:0.0.2`
+- `docker run abriedev/censusgeocoder:latest`
 
 ## Build CLI Locally
 
