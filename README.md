@@ -4,7 +4,7 @@ This repository contains a Go module for interfacing with [Census.gov Geocoder](
 
 ## Use CLI from Docker Image
 
-- `docker run abriedev/censusgeocoder:latest`
+- `docker run abriedev/us-census-geocoder:latest`
 
 ## Build CLI Locally
 
@@ -15,7 +15,7 @@ Results are written to stdout as JSON.
 
 ## Use the API programmatically
 
-- `import ("github.com/abrie/censusgeocoder")`
+- `import ("github.com/abrie/us-census-geocoder")`
 
 Two types of results are available: 'locations' or 'geographies'. Both require a 'benchmark' parameter.
 Geographies takes two additional parameters: 'vintage' parameters, and an (optionally empty) 'layers' parameter.
